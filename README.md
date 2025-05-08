@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hypermart Checkout System
+
+A real-time queue management system for optimizing customer checkout experiences in supermarkets and retail stores.
+
+![Hypermart Checkout System](./assets/hypermart.png)
+
+## Overview
+
+The Hypermart Checkout System is a modern web application designed to efficiently manage checkout queues in high-traffic retail environments. The system automatically assigns customers to checkout counters with the fewest total items, reducing wait times and improving overall shopping experiences.
+
+## Features
+
+- **Smart Queue Assignment**: Automatically directs customers to the checkout counter with the fewest total items
+- **Real-time Updates**: Visual feedback when customers are assigned to counters
+- **Queue Monitoring**: Tracks the number of customers and items at each checkout counter
+- **Simple Management**: Easy-to-use interface for adding customers and resetting counters
+- **Responsive Design**: Works seamlessly across desktop and mobile devices
+
+## Tech Stack
+
+- **Framework**: Next.js 15.3.2
+- **UI**: React 19.0.0
+- **Styling**: Tailwind CSS 4.1.5
+- **Icons**: Lucide React
+- **Components**: Custom UI components using Radix UI primitives
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v18 or higher)
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/hypermart-checkout-system.git
+   cd hypermart-checkout-system
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+   or
+   ```bash
+   yarn install
+   ```
 
-## Learn More
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+   or
+   ```bash
+   yarn dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Adding a Customer**:
+   - Enter the number of items in the input field
+   - Click "Checkout Items" to assign the customer to the optimal counter
+   - The assigned counter will briefly highlight in green
 
-## Deploy on Vercel
+2. **Resetting the System**:
+   - Click "Reset All" to clear all counters and start fresh
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How It Works
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The system implements a simple but effective algorithm for queue management:
+
+1. When a new customer arrives, they are assigned to the checkout counter with the fewest total items
+2. If multiple counters have the same number of items, the customer is assigned to the counter with the lowest number (leftmost counter)
+3. Each counter keeps a running total of customers and items
+
+This approach helps balance the workload across all checkout counters and minimizes customer wait times.
+
+### Adding More Counters
+
+To increase the number of checkout counters:
+
+1. Open `app/page.tsx`
+2. Update the initial state in the `useState` hook:
+   ```typescript
+   const [checkouts, setCheckouts] = useState<Checkout[]>([
+     { id: 1, customers: [], totalItems: 0 },
+     { id: 2, customers: [], totalItems: 0 },
+     { id: 3, customers: [], totalItems: 0 },
+     { id: 4, customers: [], totalItems: 0 }, // Add more counters as needed
+   ])
+   ```
+3. Don't forget to also update the `resetCheckouts` function to include the same number of counters.
+
+## Acknowledgments
+
+- UI components inspired by [shadcn/ui](https://ui.shadcn.com/)
+- Icons provided by [Lucide](https://lucide.dev/)
